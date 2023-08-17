@@ -46,16 +46,27 @@ public class RecipesService
 
     if (originalRecipe.CreatorId != userId)
     {
-      throw new Exception("NOT YOUR RECIPE TO DELETE!")
-        }
+      throw new Exception("NOT YOUR RECIPE TO UPDATE!");
+    }
 
     originalRecipe.Title = recipeData.Title ?? originalRecipe.Title;
     originalRecipe.Instructions = recipeData.Instructions ?? originalRecipe.Instructions;
     originalRecipe.Category = recipeData.Category ?? originalRecipe.Category;
     originalRecipe.Img = recipeData.Img ?? originalRecipe.Img;
 
-    Recipe recipe = _recipesRepository.UpdateRecipe(originalRecipe);
+    _recipesRepository.UpdateRecipe(originalRecipe);
 
-    return recipe;
+    return originalRecipe;
+  }
+
+  internal void RemoveRecipe(int recipeId, string userId)
+  {
+    Recipe recipe = GetRecipeById(recipeId);
+
+    if (recipe.CreatorId != userId)
+    {
+      throw new Exception("NOT YOUR RECIPE TO DELETE!");
+    }
+    _recipesRepository.RemoveRecipe(recipeId);
   }
 }

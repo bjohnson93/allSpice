@@ -70,11 +70,18 @@ public class RecipesRepository
     return recipes;
   }
 
+  internal void RemoveRecipe(int recipeId)
+  {
+    string sql = "DELETE FROM recipes WHERE id = @recipeId LIMIT 1;";
+
+    _db.Execute(sql, new { recipeId });
+  }
+
   internal Recipe UpdateRecipe(Recipe originalRecipe)
   {
     string sql = @"
         UPDATE recipes
-        SET title = @Title, instructions = @Instructions, img = @Img, category = @Category, creatorId = @CreatorId
+        SET title = @Title, instructions = @Instructions, img = @Img, category = @Category
         WHERE id = @Id
         LIMIT 1;
         SELECT * FROM recipes WHERE id = @Id
@@ -84,4 +91,7 @@ public class RecipesRepository
 
     return updatedRecipe;
   }
+
+  // do these need to go above in string sql? JOIN accounts acc ON recipes.CreatorId = originalRecipe.CreatorId to populate CREATOR in body in post man
+
 }
