@@ -56,7 +56,8 @@ public class RecipesService
 
     _recipesRepository.UpdateRecipe(originalRecipe);
 
-    return originalRecipe;
+    Recipe updatedRecipe = GetRecipeById(originalRecipe.Id);
+    return updatedRecipe;
   }
 
   internal void RemoveRecipe(int recipeId, string userId)
