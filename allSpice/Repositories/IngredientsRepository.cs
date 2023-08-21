@@ -45,7 +45,9 @@ public class IngredientsRepository
         ing.*, 
         rec.*
         FROM ingredients ing
-        JOIN recipes rec WHERE ing.recipeId = @recipeId
+        JOIN recipes rec 
+        ON rec.id = ing.recipeId
+        WHERE ing.recipeId = @recipeId
         ;";
 
     List<Ingredient> ingredients = _db.Query<Ingredient, Recipe, Ingredient>(

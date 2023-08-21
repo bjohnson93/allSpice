@@ -39,6 +39,8 @@ CREATE TABLE favorites(
   FOREIGN KEY(recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+DROP TABLE favorites;
+
 
 INSERT INTO recipes(title, instructions, img, category, creatorId)
 VALUES ('Avocado Rice Cake', '1. Mash Avocado to smooth but chunky consistency, 2. Spread on desired ricecake, 3. Top with Everything seasoning, pepperflakes, lemon juice/zest', 'https://images.unsplash.com/photo-1603046891726-36bfd957e0bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZvY2FkbyUyMHRvYXN0fGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60', 'Snacks', '64adb7d638a6f807f070aea8');

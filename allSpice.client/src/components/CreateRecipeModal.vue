@@ -1,9 +1,6 @@
 <template>
-  
-  <!-- Button trigger modal -->
 
-
-<!-- Modal -->
+<!-- Modal RECIPE FORM -->
 <div class="modal fade" id="createRecipeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -14,7 +11,7 @@
       <div class="modal-body">
         <div class="container-fluid">
 
-          <form @submit.prevent="createRecipe()" action="">
+          <form @submit.prevent="handleSubmit()" action="">
             <div class="mb-3">
               <label for="">Title</label>
               <input title="Recipe Title" v-model="editable.title" class="form-control" type="text" minlength="3" maxlength="255" required>
@@ -53,7 +50,7 @@
 
 
 <script>
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import Pop from "../utils/Pop.js";
 import { recipesService } from "../services/RecipesService.js";
 import { logger } from "../utils/Logger.js";
@@ -63,15 +60,40 @@ import { Modal } from "bootstrap";
 export default {
   setup(){
     const editable = ref({})
+    watchEffect(() => {
+      editable.value = {...AppState.activeRecipe}
+    })
     return {
       recipe: computed(() => AppState.recipe),
       editable,
+      handleSubmit(){
+        if(editable.value.id){
+          this.editRecipe()
+        }
+        else{
+          editable.value = {}
+          this.createRecipe()
+        }
+      },
       async createRecipe(){
         try 
         {
           const recipeData = editable.value
           logger.log('[CREATING A RECIPE...]', recipeData)
           await recipesService.createRecipe(recipeData)
+          editable.value = {}
+          Modal.getOrCreateInstance('#createRecipeModal').hide()
+        }
+        catch (error)
+        {
+          Pop.error(error.message)
+        }
+      },
+      async editRecipe(){
+        try 
+        {
+          const recipeData = editable.value
+          await recipesService.editRecipe(recipeData)
           editable.value = {}
           Modal.getOrCreateInstance('#createRecipeModal').hide()
         }

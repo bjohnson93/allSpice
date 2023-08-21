@@ -20,8 +20,25 @@ class RecipesService {
     const res = await api.post('api/recipes', recipeData)
     logger.log('creating a recipe....')
     const recipe = new Recipe(res.data)
-    AppState.recipes.unshift(recipe)
-    return recipe
+    AppState.recipes.push(recipe)
+  }
+
+  async editRecipe(recipeData) {
+    const res = await api.put(`api/recipes/${recipeData.id}`, recipeData)
+    const recipe = new Recipe(res.data)
+    AppState.activeRecipe = recipe
+    // const recipeIndex = AppState.recipes.find(r => r.id == recipeData.id)
+    // AppState.recipes.splice(recipeIndex, 1, recipe)
+  }
+
+  async deleteRecipe(recipeId) {
+    const res = await api.delete(`api/recipes/${recipeId}`)
+    logger.log('[Deleting recipe...]', res.data)
+    AppState.recipes = AppState.recipes.filter(recipe => recipe.id != recipeId)
+  }
+
+  clearActiveRecipe() {
+    AppState.activeRecipe = null
   }
 
 }

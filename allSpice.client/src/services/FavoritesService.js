@@ -3,8 +3,8 @@ import { api } from "./AxiosService.js"
 
 class FavoritesService {
 
-  async createFavorite(recipeId) {
-    const res = await api.post('api/favorites')
+  async createFavorite(activeRecipe) {
+    const res = await api.post('/api/favorites', activeRecipe)
     logger.log('Adding a favorite recipe...', res.data)
   }
 }

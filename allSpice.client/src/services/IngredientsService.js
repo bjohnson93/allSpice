@@ -9,13 +9,20 @@ class IngredientsService {
     logger.log('[ARE WE GETTING THE INGREDIENTS?]', res.data)
     const ingredients = res.data.map(ing => new Ingredient(ing))
     AppState.ingredients = ingredients
-    logger.log('ingredients from app state', AppState.ingredients)
+    // logger.log('ingredients from app state', AppState.ingredients)
   }
 
   async createIngredient(ingredientData) {
+    ingredientData.recipeId = AppState.activeRecipe.id
     const res = await api.post('api/ingredients', ingredientData)
-    logger.log(res.data)
-    AppState.ingredients = res.data.map(pojo => new Ingredient(pojo))
+    AppState.ingredients.push(new Ingredient(res.data))
+  }
+
+  async editIngredient(ingredientData) {
+    const res = await api.put(`api/ingredients/${ingredientData.recipeId}`, ingredientData)
+    const ingredient = new Ingredient(res.data)
+    const ingredientIndex = AppState.ingredients.find(i => i.id == ingredientData.id)
+    AppState.ingredients.splice(ingredientIndex, 1, ingredient)
   }
 }
 

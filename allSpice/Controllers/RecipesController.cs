@@ -58,6 +58,10 @@ public class RecipesController : ControllerBase
     try
     {
       Recipe recipe = _recipesService.GetRecipeById(recipeId);
+      if (recipe == null)
+      {
+        throw new Exception("No such recipe with that Id");
+      }
       return Ok(recipe);
     }
     catch (Exception e)
