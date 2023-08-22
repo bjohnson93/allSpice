@@ -72,7 +72,7 @@
 
           <section v-if="activeRecipe" class="mt-3 row d-flex justify-content-between">
             <div class="col-12 col-md-6 ">
-              <button @click="createFavorite(activeRecipe)" class="btn fs-3 pt-0"> <i class="mdi mdi-heart-outline"></i></button>
+              <button @click="createFavorite(activeRecipe.id)" class="btn fs-3 pt-0"> <i class="mdi mdi-heart-outline"></i></button>
             </div>
             <div class="col-12 col-md-6 text-end">
               <p>Published By {{ activeRecipe?.creator.name }}</p>
@@ -157,10 +157,10 @@ export default {
                     Pop.error(error.message);
                 }
             },
-            async createFavorite(activeRecipe){
+            async createFavorite(){
               try 
               {
-                await favoritesService.createFavorite(activeRecipe)
+                await favoritesService.createFavorite()
               }
               catch (error)
               {

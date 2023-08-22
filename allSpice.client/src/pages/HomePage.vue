@@ -55,7 +55,7 @@ import { computed, onMounted, ref, watchEffect } from "vue"
 import { AppState } from "../AppState.js"
 import { Recipe } from "../models/Recipe.js"
 import { ingredientsService } from "../services/IngredientsService.js"
-import { accountService } from "../services/AccountService.js"
+import { favoritesService } from "../services/FavoritesService.js"
 
 
 export default {
@@ -84,14 +84,6 @@ export default {
         Pop.error(error.message)
       }
     }
-    async function getFavoriteRecipes() {
-            try {
-                await accountService.getFavoriteRecipes();
-            }
-            catch (error) {
-                Pop.error(error.message);
-            }
-        }
     watchEffect(() => {
       if (AppState.activeRecipe) {
         AppState.ingredients = []
@@ -100,7 +92,7 @@ export default {
     })
     onMounted(() => {
       getRecipes();
-      getFavoriteRecipes();
+      // getFavoriteRecipes();
     });
 
     return {

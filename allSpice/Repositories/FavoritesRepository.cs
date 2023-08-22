@@ -17,13 +17,12 @@ public class FavoritesRepository
   internal int CreateFavorite(Favorite favoriteData)
   {
     string sql = @"
-        INSERT INTO favorites (accountId, recipeId)
-        VALUES (@AccountId, @RecipeId);
+        INSERT INTO favorites (recipeId, accountId)
+        VALUES (@RecipeId, @AccountId);
         SELECT LAST_INSERT_ID()
         ;";
 
     int favoriteId = _db.ExecuteScalar<int>(sql, favoriteData);
-
     return favoriteId;
   }
 

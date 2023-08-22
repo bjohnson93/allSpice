@@ -2,19 +2,28 @@
   
   <nav class="p-5 cool-nav navbar-nav .router-link-exact-active">
     <div class="container-fluid">
+      <Login />
         <section class="row d-flex justify-content-between">
-          <div class="d-flex justify-content-end">
-            <input class="rounded" title="Search Recipes..." placeholder="Search Recipes..." type="text">
-            <div class="input-group-append">
-              <button class="btn btn-secondary" type="button">Button</button>
-            </div>
+          
+          <div class="d-flex justify-content-center ">
+            <p class="text-center text-light gray-box px-3 headingFont dropShadow">All Spice</p>
+            <!-- <input class="rounded" title="Search Recipes..." placeholder="Search Recipes..." type="text">
+              <div class="input-group-append"> -->
+                <!-- </div> -->
+              </div>
+            </section>
+            <section class="row d-flex  align-items-center justify-content-center py-4 ">
+              <div class="col-4 d-flex justify-content-center ">
+                <router-link class="navbar-brand d-flex text-light fs-bold me-5" :to="{ name: 'Home' }">
+                  <button class="btn gray-box dropShadow">Recipes Home</button>
+          </router-link> 
+
+                <router-link class="navbar-brand d-flex text-light fs-bold" :to="{ name: 'Account' }">
+                  <button class="btn gray-box dropShadow">My Favorite Recipes</button>
+          </router-link> 
+              </div>
+      </section>
           </div>
-          <Login />
-      </section>
-      <section class="row d-flex align-items-center justify-content-center p-4">
-        <h1 class="text-center text-light gray-box">All Spice</h1>
-      </section>
-    </div>
   </nav>
   <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
@@ -54,6 +63,16 @@ a:hover {
   text-decoration: none;
 }
 
+.dropShadow{
+  box-shadow: 2px 2px 10px whitesmoke;
+}
+.headingFont{
+  font-size: 4em;
+}
+
+.navLinks{
+  width: fit-content;
+}
 .nav-link {
   text-transform: uppercase;
 }
@@ -71,7 +90,7 @@ a:hover {
 
 @media screen and (min-width: 768px) {
   nav {
-    height: 200px;
+    height: 250px;
   }
 }
 </style>

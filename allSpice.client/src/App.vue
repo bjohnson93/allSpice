@@ -41,6 +41,11 @@ footer {
   height: 32px;
 }
 
+
+.dropShadow{
+  box-shadow: 2px 2px 10px whitesmoke;
+}
+
 .text-green{
   color: rgb(73, 130, 73);
 }

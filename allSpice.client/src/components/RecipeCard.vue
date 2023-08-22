@@ -1,11 +1,11 @@
 <template>
 <div class="container fluid ">
   <section class="row ">
-
-    <div :style="{'background-image':`url(${recipeProp.img})`}" class="m-auto  bg-white rounded recipeCard d-flex flex-column justify-content-between align-items-apart" >
+    
+    <div :style="{'background-image':`url(${recipeProp?.img})`}" class="m-auto rounded recipeCard d-flex flex-column justify-content-between align-items-apart" >
       <div class="d-flex justify-content-between">
       <p class="fs-5 p-2 gray-box mt-3">{{ recipeProp.category }} </p>
-      <button @click="createFavorite()" title="Add Recipe to Favorites" class="btn pt-0 fs-3 text-light"><i class="mdi mdi-heart-outline"></i></button>
+      <button v-if="favorite.recipeId != recipeProp.id" @click="createFavorite(recipeProp?.id)" title="Add Recipe to Favorites" class="btn pt-0 fs-3 text-light"><i class="mdi mdi-heart-outline"></i></button>
     </div>
     <div title="See Recipe Details" class="selectable" data-bs-toggle="modal" data-bs-target="#recipeDetailModal" @click="setActiveRecipe()">
       <p class="fs-4 gray-box">{{ recipeProp.title }}</p>
@@ -16,7 +16,6 @@
 </div>
 
 
-      <!-- :style="{backgroundImage: `url({{recipe.img}})`}" -->
 </template>
 
 
@@ -51,9 +50,19 @@ export default {
           Pop.error(error.message)
         }
       },
+      async createFavorite(recipeId) {
+        try 
+        {
+          await favoritesService.createFavorite(recipeId)
+        }
+        catch (error)
+        {
+          Pop.error(error.message)
+        }
+      },
       ingredients: computed(() => AppState.ingredients),
       account: computed(() => AppState.account),
-      favorites: computed(() => AppState.favorites)
+      favorite: computed(() => AppState.favorites),
     }
   }
 }
@@ -61,9 +70,12 @@ export default {
 
 
 <style lang="scss" scoped>
+
   .recipeCard{
     height: 50vh;
-      width: 100%;
-    }
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+  }
       
 </style>

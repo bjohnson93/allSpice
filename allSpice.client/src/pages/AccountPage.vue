@@ -9,11 +9,16 @@
         </div>
       </div>
     </section>
-    <section class="row">
-      <h1>My Favorite Recipes</h1>
-      <div v-for="fav in favorites" :key="fav.id" class="col-3 m-auto mb-3">
-        <RecipeCard :recipeProp="fav"/>
+    <section class="row justify-content-center">
+      <div class="col-6  text-center">
+        <h1 class="gray-box dropShadow">My Favorite Recipes</h1>
       </div>
+      <section class="row">
+
+        <div v-for="fav in favorites" :key="fav.id" class="col-md-4 col-12 m-auto mb-3">
+          <RecipeCard :recipeProp="fav"/>
+        </div>
+      </section>
     </section>
   </div>
 </template>
@@ -21,15 +26,16 @@
 <script>
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
-import { accountService } from "../services/AccountService.js";
 import Pop from "../utils/Pop.js";
 import RecipeCard from "../components/RecipeCard.vue";
 import { Favorite } from "../models/Favorite.js";
+import { AuthService } from "../services/AuthService.js";
+import { favoritesService } from "../services/FavoritesService.js";
 export default {
     setup() {
         async function getFavoriteRecipes() {
             try {
-                await accountService.getFavoriteRecipes();
+                await favoritesService.getFavoriteRecipes();
             }
             catch (error) {
                 Pop.error(error.message);

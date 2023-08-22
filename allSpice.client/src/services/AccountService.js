@@ -14,11 +14,7 @@ class AccountService {
     }
   }
 
-  async getFavoriteRecipes() {
-    const res = await api.get('/account/favorites')
-    logger.log('[GETTING MY FAVS?]', res.data)
-    AppState.favorites = res.data
-  }
+
 }
 
 export const accountService = new AccountService()

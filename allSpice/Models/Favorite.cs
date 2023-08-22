@@ -12,6 +12,11 @@ public class Favorite
   public int RecipeId { get; set; }
 }
 
+public class FavoriteProfile : Profile
+{
+  public int FavoriteId { get; set; }
+}
+
 public class RecipeFavorite : Recipe
 {
   public int FavoriteId { get; set; }

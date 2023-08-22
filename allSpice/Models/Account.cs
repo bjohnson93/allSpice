@@ -15,3 +15,8 @@ public class Profile
   public string Name { get; set; }
   public string Picture { get; set; }
 }
+
+public class FavAccount : Profile
+{
+  public int FavoriteId { get; set; }
+}
