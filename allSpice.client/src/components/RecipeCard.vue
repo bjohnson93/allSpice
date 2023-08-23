@@ -12,6 +12,7 @@
     </div>
   
   </div>
+  <div class="bg-success text-light">{{ favorite }}</div>
   </section>
 </div>
 
